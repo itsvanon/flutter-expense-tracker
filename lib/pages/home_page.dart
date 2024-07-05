@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController amountController = TextEditingController();
 
-  Future<Map<String, double>>? _monthlyTotalsFuture;
+  Future<Map<String,double>>? _monthlyTotalsFuture;
   Future<double>? _currentMonthlyTotal;
 
   @override
@@ -154,27 +154,27 @@ class _HomePageState extends State<HomePage> {
                     future: _monthlyTotalsFuture, 
                     builder: (context, snapshot) {
                       if(snapshot.connectionState == ConnectionState.done) {
-                        Map<String, double> monthlyTotals = snapshot.data ?? {};
+                        Map<String,double>? monthlyTotals = snapshot.data;
                         List<double> monthlySummary = List.generate(
                           monthCount, 
                           (index) {
                             int year = startYear + (startMonth + index - 1) ~/ 12;
-                            int month = (startMonth + index -1) % 12 + 1;
-
-                            String yearMonthKey = "$year-$month";
-
-                            return monthlyTotals[yearMonthKey] ?? 0.0;
-
-                          }
+                            int month = (startMonth + index - 1) % 12 + 1;
+                            String yearMonthKey = '$year-$month';
+                            return  monthlyTotals?[yearMonthKey] ?? 0.0;
+                          },
                         );
                   
-                        return MyBarGraph(monthlySummary: monthlySummary, startMonth: startMonth);
+                        return MyBarGraph(
+                          monthlySummary: monthlySummary, 
+                          startMonth: startMonth
+                        );
                       } else {
                         return const Center(
                           child: Text("Loading..."),
                         );
                       }
-                    }
+                    },
                   ),
                 ),
                 const SizedBox(height: 25,),
