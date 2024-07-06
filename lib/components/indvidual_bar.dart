@@ -6,6 +6,4 @@ class IndvidualBar {
     required this.x,
     required this.y,
   });
-
-  
 }

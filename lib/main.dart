@@ -3,14 +3,14 @@ import 'package:flutter_expense_tracker/database/expense_database.dart';
 import 'package:flutter_expense_tracker/pages/home_page.dart';
 import 'package:provider/provider.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ExpenseDatabase.initialize();
-  
-  runApp(ChangeNotifierProvider(
-    create: (context) => ExpenseDatabase(),
-    child: const MyApp(),
+
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ExpenseDatabase(),
+      child: const MyApp(),
     ),
   );
 }
